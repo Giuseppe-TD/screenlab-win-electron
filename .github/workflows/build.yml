@@ -1,0 +1,41 @@
+name: Build Screenlab Windows
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Genera icona
+        run: pip install pillow && python generate_icon_win.py
+
+      - name: Install dipendenze
+        run: npm install
+
+      - name: Build installer
+        run: npm run build
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Crea Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Screenlab Latest
+          files: dist/*.exe
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
