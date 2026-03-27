@@ -18,7 +18,7 @@ contextBridge.exposeInMainWorld('api', {
   openDevtools:   (id)    => ipcRenderer.invoke('views:devtools', id),
   screenshot:     (id)    => ipcRenderer.invoke('views:screenshot', id),
   screenshotAll:  ()      => ipcRenderer.invoke('views:screenshotAll'),
-  pickFolder:     ()      => ipcRenderer.invoke('dialog:folder'),
+  saveFile:       (filePath, base64) => ipcRenderer.invoke('file:save', { filePath, base64 }),
 
   // Events dal main → renderer
   on: (ch, fn) => {
