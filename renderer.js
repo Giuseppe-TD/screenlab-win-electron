@@ -163,9 +163,7 @@ async function takeScreenshot(id, dev) {
   const b64 = await window.api.screenshot(id);
   if (!b64) return;
   const safe = dev.name.replace(/ /g,'_').replace(/"/g,'in').replace(/\//g,'-');
-  const p    = `${folder}\\${safe}_${dev.w}x${dev.h}.png`;
-  const buf  = Buffer.from(b64, 'base64');
-  require('fs').writeFileSync(p, buf);
+  await window.api.saveFile(`${folder}\\${safe}_${dev.w}x${dev.h}.png`, b64);
 }
 
 async function screenshotAll() {
@@ -177,8 +175,7 @@ async function screenshotAll() {
     if (!entry) continue;
     const { dev } = entry;
     const safe = dev.name.replace(/ /g,'_').replace(/"/g,'in').replace(/\//g,'-');
-    const p    = `${folder}\\${safe}_${dev.w}x${dev.h}.png`;
-    require('fs').writeFileSync(p, Buffer.from(b64, 'base64'));
+    await window.api.saveFile(`${folder}\\${safe}_${dev.w}x${dev.h}.png`, b64);
   }
 }
 
