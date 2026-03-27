@@ -7,14 +7,13 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: transparent; /* canvas visibile sotto */
+    background: #1a1a1a;
     color: #fff;
     font-family: -apple-system,'Segoe UI',sans-serif;
     height: 100vh;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    /* pointer-events solo su toolbar e sidebar, non sull'area canvas */
   }
 
   /* ── Toolbar ── */
@@ -128,8 +127,8 @@
   /* ── Canvas area — pointer-events none così i click passano alle WebContentsView ── */
   #canvas {
     flex: 1;
-    background: transparent;
-    pointer-events: none; /* click passano alle device views sotto */
+    background: #1a1a1a;
+    pointer-events: none;
     position: relative;
     overflow: hidden;
   }
@@ -156,11 +155,15 @@
     display: flex; align-items: center; gap: 6px;
     margin-bottom: 6px;
     pointer-events: all;
-    background: transparent;
+    background: rgba(30,30,30,0.85);
+    backdrop-filter: blur(4px);
+    border-radius: 6px;
+    padding: 4px 8px;
   }
   .card-title .name {
     font-size: 11px; font-weight: 600;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    color: #fff;
   }
   .card-title .size { font-size: 9px; color: #666; font-family: Consolas,monospace; }
   .card-title { flex: 1; }
